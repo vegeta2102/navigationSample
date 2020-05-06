@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.shopify:livedata-ktx:3.0.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/46612863667a0fb7ce0aa60cd263a541/jetified-livedata-ktx-3.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/46612863667a0fb7ce0aa60cd263a541/jetified-livedata-ktx-3.0.0/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.shopify/livedata-ktx/3.0.0/2205af4df8b5b1558c0a7f57e1de3b7a43c9af8d/livedata-ktx-3.0.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.shopify/livedata-ktx/3.0.0/309d424aae7aee54220cbe5afffd9d31bab1bca1/livedata-ktx-3.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

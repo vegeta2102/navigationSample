@@ -17,6 +17,10 @@ class MainViewModel : ViewModel() {
     val requestViewBalance: LiveData<Unit>
         get() = _requestViewBalance
 
+    private val _requestNotify = PublishLiveDataKtx<Unit>()
+    val requestNotify: LiveData<Unit>
+        get() = _requestNotify
+
     fun selectSendMoney() {
         _requestSendMoney.value = Unit
     }
@@ -27,5 +31,9 @@ class MainViewModel : ViewModel() {
 
     fun selectViewTransaction() {
         _requestViewTransaction.value = Unit
+    }
+
+    fun selectNotify() {
+        _requestNotify.value = Unit
     }
 }

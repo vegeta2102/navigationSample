@@ -64,6 +64,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 findNavController().navigate(R.id.action_mainFragment_to_viewBalanceFragment2)
                 Log.d("TAG", "action_mainFragment_to_viewBalanceFragment2")
             }
+
+            requestNotify.observe(viewLifecycleOwner) {
+                findNavController().navigate(R.id.action_mainFragment_to_notificationFragment)
+            }
         }
     }
 

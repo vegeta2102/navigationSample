@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_mainFragment_to_viewBalanceFragment2"
             app:destination="@id/viewBalanceFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
     </fragment>
     <fragment
         android:id="@+id/chooseRecipientFragment"
@@ -54,4 +57,8 @@
         android:name="jp.hoangvu.navigationexample.ViewTransactionFragment"
         android:label="fragment_view_transaction"
         tools:layout="@layout/fragment_view_transaction" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="jp.hoangvu.navigationexample.NotificationFragment"
+        android:label="NotificationFragment" />
 </navigation>
