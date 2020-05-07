@@ -13,17 +13,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/parentLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/black"
         tools:context=".NotificationFragment">
-
-        <ImageView
-            android:id="@+id/left_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/ic_test"
-            app:layout_constraintEnd_toStartOf="@id/nested_scroll_view"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nested_scroll_view"
