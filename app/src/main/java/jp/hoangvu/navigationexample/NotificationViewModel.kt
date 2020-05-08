@@ -17,6 +17,10 @@ class NotificationViewModel : ViewModel() {
     val requestOpen: LiveData<Unit>
         get() = _requestOpen
 
+    private val _requestAdd = MutableLiveData<Unit>()
+    val requestAdd: LiveData<Unit>
+        get() = _requestAdd
+
     fun initialize() {
         _notifications.value = makeDummyData()
     }
@@ -32,5 +36,9 @@ class NotificationViewModel : ViewModel() {
 
     fun open() {
         _requestOpen.value = Unit
+    }
+
+    fun add() {
+        _requestAdd.value = Unit
     }
 }

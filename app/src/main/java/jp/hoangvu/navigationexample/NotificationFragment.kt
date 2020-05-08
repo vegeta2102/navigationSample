@@ -10,10 +10,10 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import jp.hoangvu.navigationexample.databinding.FragmentNotificationDriversBinding
+import jp.hoangvu.navigationexample.databinding.FragmentNotificationDriversRelayoutBinding
 
 
-class NotificationFragment : Fragment(R.layout.fragment_notification_drivers) {
+class NotificationFragment : Fragment(R.layout.fragment_notification_drivers_relayout) {
 
     private val viewModel: NotificationViewModel by lazy {
         ViewModelProvider(requireActivity()).get(NotificationViewModel::class.java)
@@ -21,7 +21,7 @@ class NotificationFragment : Fragment(R.layout.fragment_notification_drivers) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val binding = DataBindingUtil.bind<FragmentNotificationDriversBinding>(view)
+        val binding = DataBindingUtil.bind<FragmentNotificationDriversRelayoutBinding>(view)
         binding ?: return
 
         binding.apply {
@@ -43,6 +43,9 @@ class NotificationFragment : Fragment(R.layout.fragment_notification_drivers) {
 
             requestOpen.observe(viewLifecycleOwner) {
                 Log.d("Notify", "Click button")
+            }
+            requestAdd.observe(viewLifecycleOwner) {
+
             }
         }
     }
