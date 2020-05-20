@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:background="@color/gray100"
             android:orientation="horizontal"
+            app:animatedVisibility="@{viewModel.requestHide}"
             app:layout_constraintEnd_toStartOf="@id/right_button"
             app:layout_constraintTop_toTopOf="parent"
             tools:context=".NotificationFragment">
@@ -33,21 +34,15 @@
                 android:onClick="@{()->viewModel.hide()}"
                 tools:visibility="visible" />
 
-            <androidx.core.widget.NestedScrollView
-                android:id="@+id/nested_scroll_view"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_notify"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/bg_white">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list_notify"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:data="@{viewModel.notifications}"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/layout_notify_item" />
-            </androidx.core.widget.NestedScrollView>
+                android:background="@drawable/bg_white"
+                app:data="@{viewModel.notifications}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/layout_notify_item" />
         </LinearLayout>
 
         <View
@@ -55,6 +50,7 @@
             android:layout_width="40dp"
             android:layout_height="50dp"
             android:background="@drawable/background_notify_left"
+            android:onClick="@{()->viewModel.open()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible" />
