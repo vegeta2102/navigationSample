@@ -24,7 +24,6 @@
             app:animatedVisibility="@{viewModel.requestHide}"
             app:layout_constraintEnd_toStartOf="@id/right_button"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             tools:context=".NotificationFragment">
 
             <View

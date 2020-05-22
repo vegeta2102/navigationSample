@@ -11,6 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import jp.hoangvu.navigationexample.databinding.FragmentMainBindingImpl
+import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
@@ -41,6 +42,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
         initDataBinding(view)
         observeViewModel()
+        add.setOnClickListener {
+            viewModelNotification.add()
+        }
+        delete.setOnClickListener {
+            viewModelNotification.delete()
+        }
     }
 
     private fun initDataBinding(view: View) {

@@ -36,4 +36,5 @@ class MainViewModel : ViewModel() {
     fun selectNotify() {
         _requestNotify.value = Unit
     }
+
 }

@@ -1,6 +1,7 @@
 package jp.hoangvu.navigationexample
 
 import android.app.Application
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -35,7 +36,9 @@ class NotificationViewModel(application: Application) : AndroidViewModel(applica
 
     fun initialize() {
         _notifications.value = makeDummyData()
-        //_notifications.value = notifyRepository.notifyList
+        notifyRepository.getList().observeForever {
+            _notifications.value = it
+        }
     }
 
     private fun makeDummyData() = mutableListOf<NotifyData>().apply {
@@ -52,8 +55,17 @@ class NotificationViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun add() {
+        Log.d("ViewModel", "Hey hey")
         viewModelScope.launch(Dispatchers.IO) {
             notifyRepository.insert(NotifyData(title = "Please take a look"))
+        }
+    }
+
+    fun delete() {
+        viewModelScope.launch(Dispatchers.IO) {
+            notifications.value?.firstOrNull()?.id?.let {
+                notifyRepository.delete(it)
+            }
         }
     }
 }
