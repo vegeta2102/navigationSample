@@ -34,20 +34,16 @@ class NotificationViewModel(application: Application) : AndroidViewModel(applica
     val requestAdd: LiveData<Unit>
         get() = _requestAdd
 
-    init {
+    fun initialize() {
+        _notifications.value = makeDummyData()
         notifyRepository.getVisibleList().observeForever {
+            Log.d("List", it.toString())
+            _notifications.value = it
             _requestHide.value = if (it.isEmpty().not()) {
                 View.VISIBLE
             } else {
                 View.GONE
             }
-        }
-    }
-
-    fun initialize() {
-        _notifications.value = makeDummyData()
-        notifyRepository.getList().observeForever {
-            _notifications.value = it
         }
     }
 

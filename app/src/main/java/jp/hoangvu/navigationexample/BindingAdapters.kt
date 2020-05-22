@@ -1,6 +1,7 @@
 package jp.hoangvu.navigationexample
 
 import android.view.View
+import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -27,10 +28,24 @@ fun setVisibility(view: View, visibility: Int) {
         }
         else -> {
             //view.slideAnimation(SlideDirection.RIGHT, SlideType.HIDE)
-            view.startAnimation(
+            val animation =
                 AnimationUtils.loadAnimation(view.context, R.anim.slide_left_to_right_out)
-            )
-            view.visibility = View.GONE
+            animation.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationRepeat(animation: Animation?) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onAnimationEnd(animation: Animation?) {
+                    view.visibility = View.GONE
+                }
+
+                override fun onAnimationStart(animation: Animation?) {
+
+                }
+
+            })
+            view.startAnimation(animation)
+            //view.visibility = View.GONE
         }
     }
 }
