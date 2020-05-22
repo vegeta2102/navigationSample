@@ -17,4 +17,10 @@ interface NotifyDao {
 
     @Query("DELETE FROM notify_table WHERE id = :id")
     suspend fun delete(id: Int)
+
+    @Query("UPDATE notify_table SET is_visible = 1 WHERE is_visible = 0")
+    suspend fun updateVisibleNotification()
+
+    @Query("UPDATE notify_table SET is_visible = 0 WHERE is_visible = 1")
+    suspend fun updateInvisibleNotification()
 }

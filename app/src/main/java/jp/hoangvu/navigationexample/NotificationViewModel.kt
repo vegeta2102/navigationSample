@@ -34,6 +34,16 @@ class NotificationViewModel(application: Application) : AndroidViewModel(applica
     val requestAdd: LiveData<Unit>
         get() = _requestAdd
 
+    init {
+        notifyRepository.getVisibleList().observeForever {
+            _requestHide.value = if (it.isEmpty().not()) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
+        }
+    }
+
     fun initialize() {
         _notifications.value = makeDummyData()
         notifyRepository.getList().observeForever {
@@ -42,22 +52,26 @@ class NotificationViewModel(application: Application) : AndroidViewModel(applica
     }
 
     private fun makeDummyData() = mutableListOf<NotifyData>().apply {
-        add(NotifyData(title = "Item1"))
-        add(NotifyData(title = "Item2"))
+        add(NotifyData(title = "Item1", isVisible = true))
+        add(NotifyData(title = "Item2", isVisible = true))
     }
 
     fun hide() {
-        _requestHide.value = View.GONE
+        viewModelScope.launch(Dispatchers.IO) {
+            notifyRepository.update(isVisible = true)
+        }
     }
 
     fun open() {
-        _requestHide.value = View.VISIBLE
+        viewModelScope.launch(Dispatchers.IO) {
+            notifyRepository.update(isVisible = false)
+        }
     }
 
     fun add() {
         Log.d("ViewModel", "Hey hey")
         viewModelScope.launch(Dispatchers.IO) {
-            notifyRepository.insert(NotifyData(title = "Please take a look"))
+            notifyRepository.insert(NotifyData(title = "Please take a look", isVisible = true))
         }
     }
 

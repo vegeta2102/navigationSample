@@ -9,5 +9,7 @@ data class NotifyData(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     @ColumnInfo(name = "title")
-    val title: String
+    val title: String,
+    @ColumnInfo(name = "is_visible")
+    val isVisible: Boolean
 )
