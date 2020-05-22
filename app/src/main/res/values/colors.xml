@@ -6,4 +6,9 @@
     <color name="gray100">#F5F5F5</color>
     <color name="divider">#D6D6D6</color>
     <color name="black">#0C0C0C</color>
+    <color name="notify_base_background">#E6FFFFFF</color>
+    <color name="notify_base_background_press">#CCFFFFFF</color>
+    <color name="divider_list">#959699</color>
+    <color name="transparent">#00000000</color>
+    <color name="notify_stroke">#7582A0</color>
 </resources>

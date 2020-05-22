@@ -18,6 +18,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
     }
 
+    private val viewModelNotification: NotificationViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(NotificationViewModel::class.java)
+    }
+
     override fun onStart() {
         super.onStart()
         Navigation.findNavController(
@@ -66,7 +70,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
 
             requestNotify.observe(viewLifecycleOwner) {
-                findNavController().navigate(R.id.action_mainFragment_to_notificationFragment)
+                // findNavController().navigate(R.id.action_mainFragment_to_notificationFragment)
+                viewModelNotification.add()
             }
         }
     }

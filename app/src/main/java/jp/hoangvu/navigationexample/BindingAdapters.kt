@@ -1,9 +1,7 @@
 package jp.hoangvu.navigationexample
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 
@@ -21,10 +19,18 @@ fun <T> setRecyclerViewProperties(recyclerView: RecyclerView, data: T?) {
 fun setVisibility(view: View, visibility: Int) {
     when (visibility) {
         View.VISIBLE -> {
-            view.slideAnimation(SlideDirection.LEFT, SlideType.SHOW)
+            //view.slideAnimation(SlideDirection.LEFT, SlideType.SHOW)
+            view.visibility = View.VISIBLE
+            view.startAnimation(
+                AnimationUtils.loadAnimation(view.context, R.anim.slide_right_to_left_in)
+            )
         }
         else -> {
-            view.slideAnimation(SlideDirection.RIGHT, SlideType.HIDE)
+            //view.slideAnimation(SlideDirection.RIGHT, SlideType.HIDE)
+            view.startAnimation(
+                AnimationUtils.loadAnimation(view.context, R.anim.slide_left_to_right_out)
+            )
+            view.visibility = View.GONE
         }
     }
 }
