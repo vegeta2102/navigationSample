@@ -43,7 +43,7 @@
                 android:background="@drawable/test_base_notification_right"
                 app:data="@{viewModel.notifications}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:itemCount="0"
+                tools:itemCount="1"
                 tools:listitem="@layout/layout_notify_item" />
         </LinearLayout>
 
