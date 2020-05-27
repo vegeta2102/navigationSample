@@ -10,6 +10,10 @@ class NotifyRepository(private val notifyDao: NotifyDao) {
         notifyDao.add(notifyData)
     }
 
+    suspend fun refresh() {
+        notifyDao.refreshLatestNotification()
+    }
+
     fun getList(): LiveData<List<NotifyData>> {
         return notifyDao.getListNotify()
     }
@@ -25,6 +29,10 @@ class NotifyRepository(private val notifyDao: NotifyDao) {
             notifyDao.updateVisibleNotification()
         }
 
+    }
+
+    suspend fun deleteEntity(data: NotifyData) {
+        notifyDao.deleteEntity(data)
     }
 
     fun getVisibleList(): LiveData<List<NotifyData>> =

@@ -1,10 +1,7 @@
 package jp.hoangvu.navigationexample
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface NotifyDao {
@@ -18,9 +15,15 @@ interface NotifyDao {
     @Query("DELETE FROM notify_table WHERE id = :id")
     suspend fun delete(id: Int)
 
+    @Query("UPDATE notify_table SET is_latest = 0 WHERE is_visible = 1")
+    suspend fun refreshLatestNotification()
+
     @Query("UPDATE notify_table SET is_visible = 1 WHERE is_visible = 0")
     suspend fun updateVisibleNotification()
 
     @Query("UPDATE notify_table SET is_visible = 0 WHERE is_visible = 1")
     suspend fun updateInvisibleNotification()
+
+    @Delete
+    suspend fun deleteEntity(data: NotifyData)
 }

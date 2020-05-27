@@ -3,14 +3,19 @@ package jp.hoangvu.navigationexample
 import android.app.Application
 import android.util.Log
 import android.view.View
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class NotificationViewModel(application: Application) : AndroidViewModel(application) {
+
+    enum class State {
+        FETCH,
+        IGNORE
+    }
+
     private val notifyRepository: NotifyRepository
 
     init {
@@ -34,46 +39,100 @@ class NotificationViewModel(application: Application) : AndroidViewModel(applica
     val requestAdd: LiveData<Unit>
         get() = _requestAdd
 
+    private val _animateBackground = MutableLiveData<Int>()
+    val animateBackground: LiveData<Int>
+        get() = _animateBackground
+
+    private val _stateList = MutableLiveData<State>()
+
+    init {
+        _stateList.value = State.FETCH
+        _requestHide.value = View.GONE
+        observeList()
+    }
+
+    private fun observeList() {
+        MediatorLiveData<Int>().apply {
+            val observer = Observer<Any?> {
+                val list = _notifications.value ?: emptyList()
+                this.value = when {
+                    _stateList.value == State.IGNORE -> View.GONE
+                    _stateList.value == State.FETCH && list.isNotEmpty() -> View.VISIBLE
+                    else -> View.GONE
+                }
+            }
+            addSource(_stateList.distinctUntilChanged(), observer)
+            addSource(_notifications, observer)
+        }
+            .distinctUntilChanged()
+            .observeForever {
+                _requestHide.value = it
+            }
+    }
+
     fun initialize() {
-        _notifications.value = makeDummyData()
+        // _notifications.value = makeDummyData()
         notifyRepository.getVisibleList().observeForever {
             Log.d("List", it.toString())
             _notifications.value = it
-            _requestHide.value = if (it.isEmpty().not()) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
+        }
+        _notifications.observeForever {
+            Log.d("_notifications", "Change")
         }
     }
 
     private fun makeDummyData() = mutableListOf<NotifyData>().apply {
-        add(NotifyData(title = "Item1", isVisible = true))
-        add(NotifyData(title = "Item2", isVisible = true))
+        //add(NotifyData(title = "Item1", isVisible = true))
+        //add(NotifyData(title = "Item2", isVisible = true))
     }
 
     fun hide() {
-        viewModelScope.launch(Dispatchers.IO) {
+        _stateList.value = State.IGNORE
+        viewModelScope.launch {
+            delay(500)
             notifyRepository.update(isVisible = true)
         }
     }
 
     fun open() {
-        viewModelScope.launch(Dispatchers.IO) {
+        _stateList.value = State.FETCH
+        viewModelScope.launch {
             notifyRepository.update(isVisible = false)
         }
     }
 
-    fun add() {
-        Log.d("ViewModel", "Hey hey")
-        viewModelScope.launch(Dispatchers.IO) {
-            notifyRepository.insert(NotifyData(title = "Please take a look", isVisible = true))
+    fun clickHere(data: NotifyData) {
+        _stateList.value = State.FETCH
+        viewModelScope.launch {
+            notifyRepository.deleteEntity(data)
         }
     }
 
+    fun add() {
+        _stateList.value = State.FETCH
+        _notifications.observeOnce {
+            Log.d("One", "Really")
+            _animateBackground.value = it.firstOrNull()?.id
+        }
+        viewModelScope.launch {
+            notifyRepository.insert(
+                NotifyData(
+                    title = "Please take a look",
+                    isVisible = true,
+                    isLatest = true
+                )
+            )
+            delay(300)
+            notifyRepository.refresh()
+        }
+
+    }
+
     fun delete() {
-        viewModelScope.launch(Dispatchers.IO) {
+        _stateList.value = State.FETCH
+        viewModelScope.launch {
             notifications.value?.firstOrNull()?.id?.let {
+                Log.d("Thread 2", Thread.currentThread().toString())
                 notifyRepository.delete(it)
             }
         }

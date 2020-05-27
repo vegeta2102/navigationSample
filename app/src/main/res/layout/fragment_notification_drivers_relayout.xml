@@ -24,13 +24,14 @@
             app:animatedVisibility="@{viewModel.requestHide}"
             app:layout_constraintEnd_toStartOf="@id/right_button"
             app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible"
             tools:context=".NotificationFragment">
 
             <View
                 android:id="@+id/left_button"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/selector_notification_action_button"
+                android:background="@drawable/base_notification_short"
                 android:onClick="@{()->viewModel.hide()}"
                 tools:visibility="visible" />
 
@@ -39,9 +40,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/background_notification_list_right_corner"
+                android:background="@drawable/test_base_notification_right"
                 app:data="@{viewModel.notifications}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="0"
                 tools:listitem="@layout/layout_notify_item" />
         </LinearLayout>
 

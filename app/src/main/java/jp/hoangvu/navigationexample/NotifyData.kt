@@ -11,5 +11,7 @@ data class NotifyData(
     @ColumnInfo(name = "title")
     val title: String,
     @ColumnInfo(name = "is_visible")
-    val isVisible: Boolean
+    val isVisible: Boolean,
+    @ColumnInfo(name = "is_latest")
+    val isLatest: Boolean
 )

@@ -1,10 +1,16 @@
 package jp.hoangvu.navigationexample
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
+import android.os.Build
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+
 
 @Suppress("UNCHECKED_CAST")
 @BindingAdapter("data")
@@ -28,6 +34,7 @@ fun setVisibility(view: View, visibility: Int) {
         }
         else -> {
             //view.slideAnimation(SlideDirection.RIGHT, SlideType.HIDE)
+            Log.d("Animation", "Go")
             val animation =
                 AnimationUtils.loadAnimation(view.context, R.anim.slide_left_to_right_out)
             animation.setAnimationListener(object : Animation.AnimationListener {
@@ -36,6 +43,7 @@ fun setVisibility(view: View, visibility: Int) {
                 }
 
                 override fun onAnimationEnd(animation: Animation?) {
+                    Log.d("Animation", "Finish")
                     view.visibility = View.GONE
                 }
 
@@ -47,6 +55,22 @@ fun setVisibility(view: View, visibility: Int) {
             view.startAnimation(animation)
             //view.visibility = View.GONE
         }
+    }
+}
+
+@BindingAdapter("animateBackground")
+fun setBackgroundResource(view: View, isAnimate: Boolean) {
+    if (isAnimate) {
+        val from = ContextCompat.getColor(view.context, R.color.colorAccent)
+        val to = ContextCompat.getColor(view.context, R.color.transparent)
+
+        val anim = ValueAnimator()
+        anim.setIntValues(from, to)
+        anim.setEvaluator(ArgbEvaluator())
+        anim.addUpdateListener { valueAnimator -> view.setBackgroundColor((valueAnimator.animatedValue as Int)) }
+
+        anim.duration = 300
+        anim.start()
     }
 }
 
