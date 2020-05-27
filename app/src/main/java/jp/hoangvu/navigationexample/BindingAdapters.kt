@@ -69,7 +69,7 @@ fun setBackgroundResource(view: View, isAnimate: Boolean) {
         anim.setEvaluator(ArgbEvaluator())
         anim.addUpdateListener { valueAnimator -> view.setBackgroundColor((valueAnimator.animatedValue as Int)) }
 
-        anim.duration = 300
+        anim.duration = 4000
         anim.start()
     }
 }

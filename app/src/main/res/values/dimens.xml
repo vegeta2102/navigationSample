@@ -2,5 +2,5 @@
 <resources>
     <dimen name="dimen_8dp">8dp</dimen>
     <dimen name="dimen_56dp">56dp</dimen>
-    <dimen name="divider_height">1dp</dimen>
+    <dimen name="divider_height">2dp</dimen>
 </resources>

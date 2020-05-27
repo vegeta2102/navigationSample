@@ -6,7 +6,7 @@ import androidx.room.*
 @Dao
 interface NotifyDao {
 
-    @Query("SELECT * FROM notify_table ORDER BY id ASC")
+    @Query("SELECT * FROM notify_table ORDER BY id DESC")
     fun getListNotify(): LiveData<List<NotifyData>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
